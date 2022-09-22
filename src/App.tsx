@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Product from "./Components/Product/Product";
+import {useProducts} from "./Components/hooks/products";
+import Loader from "./Components/Loader/Loader";
+import Error from "./Components/Error/Error";
+
 
 function App() {
+    const [count, setCount] = useState(0)
+    const { loading, error, products } = useProducts()
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mx-auto max-w-2xl pt-5">
+     <h1 className="text-4xl mb-3">Hello from react {count}</h1>
+        <button className="px-4 py-2 border border-amber-400 mb-5" onClick={() => setCount(count + 1)}>Set Count</button>
+
+        { loading &&  <Loader/> }
+        { error &&  <Error/> }
+
+        { products.map(product => <Product key={product.id} product={ product }/>) }
+        {/*<Product product={ products[0] }/>*/}
+        {/*<Product product={ products[1] }/>*/}
     </div>
   );
 }
