@@ -1,8 +1,10 @@
 import React from 'react';
-import {useProducts} from "../hooks/products";
 
-const Error = () => {
-    const { error} = useProducts()
+interface ErrorMessageProps {
+    error: string
+}
+
+const Error = ({ error }: ErrorMessageProps) => {
     return (
         <p className="text-center text-red-500 font-bold">{ error }</p>
     );
